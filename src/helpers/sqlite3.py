@@ -1,5 +1,6 @@
 import sqlite3
 from typing import Dict
+from xmlrpc.client import boolean
 from src.libs.sqlite import create_db_from_csv_file
 from src.common.config import (
     scuole_miur_csv_file,
@@ -46,16 +47,16 @@ def get_by_codice(codice: str) -> Dict[str, str]:
     return output
 
 
-def get_indirizzo(codice: str) -> str:
+def get_indirizzo(scuola_miur: Dict[str, str]) -> str:
     """
-    Dato il codice meccanografico di una scuola, ritornane l'indirizzo
+    Data una scuola presa dal database del MIUR, ritornane l'indirizzo
     formattato, con il CAP per primo
     """
-    scuola_miur = get_by_codice(codice)
-    return (
-        scuola_miur["cap_scuola"]
-        + ", "
-        + scuola_miur["indirizzo_scuola"]
-        + ", "
-        + scuola_miur["descrizione_comune"]
+    return ", ".join(
+        [
+            scuola_miur["indirizzo_scuola"],
+            scuola_miur["cap_scuola"],
+            scuola_miur["descrizione_comune"],
+            scuola_miur["provincia"],
+        ]
     )

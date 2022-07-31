@@ -16,3 +16,15 @@ Per calcolare gli indirizzi delle scuole, usiamo i dati pubblici (OpenData) resi
    ```bash
    python3 -m bin.distribuzione_disponibilita 1
    ```
+
+# Geolocalizzazione
+
+Se vuoi mostrare le scuole su una mappa, puoi estrarre un CSV con la disponibilità delle scuole e le relative coordinate geografiche, in questo modo:
+
+1. Inserisci la tua chiave API di Google Maps in .env
+2. Lancia il comando
+   ```bash
+   python3 -m bin.estrai-csv-con-coordinate 1
+   ```
+3. Trovi il CSV con le coordinate in `storage/scuole-con-coordinate.csv`.
+

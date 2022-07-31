@@ -1,5 +1,6 @@
 """
-Estrai un CSV a partire dal PDF dato.
+Stampa su schermo le scuole divise per disponibilità, con relativi
+CAP e indirizzi
 
 Argomenti:
 
@@ -8,14 +9,12 @@ Argomenti:
 - a partire da quale pagina partire; di default è 1 (Roma comincia dalla pagina 83)
 """
 
-from pprint import pprint
 from sys import argv
 from typing import List
 from src.helpers.filter import distribuzione_disponibilita, estrai_scuole
 from src.helpers.scuole import get_codice_from_scuola
-from src.helpers.sqlite3 import get_indirizzo
+from src.helpers.sqlite3 import get_by_codice, get_indirizzo
 from src.libs.general import secondOrNone, thirdOrNone, fourthOrNone
-from src.helpers.geo import aggiungi_geo
 from src.libs.parse import parseInt
 
 # Config variabili
@@ -53,5 +52,6 @@ for n_disp in reversed(list(distribuzione.keys())):
     print(f">>> SCUOLE CON {n_disp} DISPONIBILITÀ ({len(scuole_con_n_disp)})")
     for scuola in scuole_con_n_disp:
         codice = get_codice_from_scuola(scuola)
-        print(get_indirizzo(codice) + " | " + scuola)
+        scuola_miur = get_by_codice(codice)
+        print(get_indirizzo(scuola_miur) + " | " + scuola)
     print("")

@@ -1,3 +1,5 @@
+from src.common.dotenv import getenv
+
 # CSV con gli indirizzi delle scuole e i rispettivi codici meccanografici,
 # preso dall'OpenData del MIUR
 scuole_miur_csv_file = "storage/scuole-miur.csv"
@@ -28,3 +30,8 @@ scuole_miur_schema = {
     "sito_web_scuola": "varchar(255)",
     "sede_scolastica": "varchar(255)",
 }
+
+# Chiave delle API Google Maps da usare per estrarre
+# latitudine e longitudine delle scuole
+google_maps_api_key = getenv("GOOGLE_MAPS_API_KEY")
+print(google_maps_api_key)
