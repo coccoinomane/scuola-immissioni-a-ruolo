@@ -2,7 +2,6 @@ import re
 from typing import Dict, List
 
 from PyPDF2 import PdfReader
-from black import out
 
 
 def filtra_scuole(
@@ -39,7 +38,7 @@ def estrai_disponibilita(scuola: str) -> List[int]:
     Se per qualche motivo non ci riesco, ritorno [99999]
     """
 
-    result = re.search("^.*(\d+)\s+(\d+)\s*$", scuola)
+    result = re.search("^.*\s+(\d+)\s+(\d+)\s*$", scuola)
     try:
         return [(int)(result.group(1)), (int)(result.group(2))]
     except:
