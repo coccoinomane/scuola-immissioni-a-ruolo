@@ -6,13 +6,14 @@ Per calcolare gli indirizzi delle scuole, usiamo i dati pubblici (OpenData) resi
 
 # Come usare
 
-1. Scaricati il file CSV con le scuole del MIUR da [questo indirizzo](https://dati.istruzione.it/opendata/opendata/catalogo/elements1/SCUANAGRAFESTAT20222320220901.csv), e salvalo nella cartella `storage` con nome `scuole-miur.csv`.
-2. Crea il database con le scuole del MIUR a partire dal CSV scaricato:
+1. Installa le dipendenze: `pip install -r requirements.txt`
+2. Scaricati il file CSV con le scuole del MIUR da [questo indirizzo](https://dati.istruzione.it/opendata/opendata/catalogo/elements1/SCUANAGRAFESTAT20222320220901.csv), e salvalo nella cartella `storage` con nome `scuole-miur.csv`.
+3. Crea il database con le scuole del MIUR a partire dal CSV scaricato:
    ```bash
    python3 -m bin.crea_database_scuole_miur
    ```
    Se ha funzionato, troverai nella cartella `storage` un file `scuole-miur.sqlite` che pesa circa 13 MB.
-3. Stampa su schermo le scuole con disponibilità, ripartite per disponibilità:
+4. Stampa su schermo le scuole con disponibilità, ripartite per disponibilità:
    ```bash
    python3 -m bin.distribuzione_disponibilita 1
    ```
@@ -22,9 +23,9 @@ Per calcolare gli indirizzi delle scuole, usiamo i dati pubblici (OpenData) resi
 Se vuoi mostrare le scuole su una mappa, puoi estrarre un CSV con la disponibilità delle scuole e le relative coordinate geografiche, in questo modo:
 
 1. Inserisci la tua chiave API di Google Maps in .env
-2. Lancia il comando
+2. Lancia il seguente comando per generare il file `storage/scuole-con-coordinate.csv`:
    ```bash
    python3 -m bin.estrai-csv-con-coordinate 1
    ```
-3. Trovi il CSV con le coordinate in `storage/scuole-con-coordinate.csv`.
+3. Carica il CSV su [Google My Maps](https://mymaps.google.com/) per vedere le scuole su una mappa
 
