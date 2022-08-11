@@ -11,7 +11,11 @@ Argomenti:
 
 from sys import argv
 from typing import List
-from src.helpers.filter import distribuzione_disponibilita, estrai_scuole
+from src.helpers.filter import (
+    distribuzione_disponibilita,
+    estrai_disponibilita,
+    estrai_scuole,
+)
 from src.helpers.scuole import get_codice_from_scuola
 from src.helpers.sqlite3 import get_by_codice, get_indirizzo
 from src.libs.general import secondOrNone, thirdOrNone, fourthOrNone
@@ -41,6 +45,7 @@ scuole = estrai_scuole(
 
 # Feedback
 print(f"Numero scuole trovate: {len(scuole)}")
+print(f"Disponibilità totali: {sum([sum(estrai_disponibilita(s)) for s in scuole])}")
 print("")
 
 # Estrai distribuzione diponibilità

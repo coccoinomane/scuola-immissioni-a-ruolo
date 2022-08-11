@@ -47,6 +47,7 @@ scuole = estrai_scuole(
 
 # Feedback
 print(f"Numero scuole trovate: {len(scuole)}")
+print(f"Disponibilità totali: {sum([sum(estrai_disponibilita(s)) for s in scuole])}")
 print("")
 
 # Estrai array con coordinate
