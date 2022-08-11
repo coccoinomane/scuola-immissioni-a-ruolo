@@ -1,7 +1,6 @@
-from pprint import pprint
-import re
 from typing import Dict, List
 from PyPDF2 import PdfReader
+from src.helpers.scuole import estrai_disponibilita
 
 
 def filtra_scuole(
@@ -37,24 +36,6 @@ def valida_scuola(
         and any([c in scuola for c in classi_di_concorso])
         and sum(estrai_disponibilita(scuola)) >= min_disponibilita
     )
-
-
-def estrai_disponibilita(scuola: str) -> List[int]:
-    """
-    Estrai le disponibilità (colonne CIN e COE) da una scuola.
-
-    Se per qualche motivo non ci riesco, ritorno None
-    """
-
-    result = re.search("^.*\s+(\d+)\s+(\d+)\s*$", scuola)
-    try:
-        return [(int)(result.group(1)), (int)(result.group(2))]
-    except:
-        pass
-    try:
-        return [(int)(result.group(1))]
-    except:
-        return None
 
 
 def estrai_scuole(

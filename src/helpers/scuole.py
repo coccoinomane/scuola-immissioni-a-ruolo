@@ -1,4 +1,5 @@
 import re
+from typing import List
 
 
 def get_codice_from_scuola(scuola: str, provincia: str) -> str:
@@ -16,3 +17,21 @@ def get_codice_from_scuola(scuola: str, provincia: str) -> str:
         raise Exception(
             f"La scuola non ha un codice meccanografico valido! SCUOLA = {scuola}"
         )
+
+
+def estrai_disponibilita(scuola: str) -> List[int]:
+    """
+    Estrai le disponibilità (colonne CIN e COE) da una scuola.
+
+    Se per qualche motivo non ci riesco, ritorno None
+    """
+
+    result = re.search("^.*\s+(\d+)\s+(\d+)\s*$", scuola)
+    try:
+        return [(int)(result.group(1)), (int)(result.group(2))]
+    except:
+        pass
+    try:
+        return [(int)(result.group(1))]
+    except:
+        return None
