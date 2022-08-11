@@ -18,7 +18,7 @@ from src.libs.parse import parseInt
 
 # Config variabili
 provincia = "RM"  # starts with
-classi_di_concorso = ["MMEH", "MMCH"]  # substring
+classi_di_concorso = ["MMCH", "MMDH", "MMEH"]  # substring
 min_disponibilita = parseInt(secondOrNone(argv)) or 0
 n_pages = parseInt(thirdOrNone(argv)) or 0
 
