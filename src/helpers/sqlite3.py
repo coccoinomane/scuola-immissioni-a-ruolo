@@ -47,15 +47,52 @@ def get_by_codice(codice: str) -> Dict[str, str]:
     return output
 
 
-def get_indirizzo(scuola_miur: Dict[str, str]) -> str:
+def get_via_scuola(scuola_miur: Dict[str, str]) -> str:
+    """
+    Data una scuola presa dal database del MIUR, ritornane la via.
+
+    Se la scuola non ha una via valida (campo indirizzo_scuola), usa
+    al suo posto la denominazione della scuola, purgata da eventuali
+    denominazioni (SMS, IC...)
+    """
+    indirizzo_scuola = scuola_miur["indirizzo_scuola"]
+    if not indirizzo_scuola or "non disponibile" in indirizzo_scuola.lower():
+        denominazione_scuola = scuola_miur["denominazione_scuola"]
+        print(
+            f"WARNING: Indirizzo non definito per '{scuola_miur['codice_scuola']}' [{denominazione_scuola}]"
+        )
+        indirizzo_scuola = denominazione_scuola.replace("SMS ", "").replace("IC ", "")
+    return indirizzo_scuola
+
+
+def get_cap_scuola(scuola_miur: Dict[str, str], fallback: str = None) -> str:
+    """
+    Data una scuola presa dal database del MIUR, ritornane il CAP,
+    o il valore di fallback se il CAP non è definito
+    """
+    cap_scuola = scuola_miur["cap_scuola"]
+    if not cap_scuola or "non disponibile" in cap_scuola.lower():
+        print(
+            f"WARNING: CAP non definito per '{scuola_miur['codice_scuola']}' [{scuola_miur['denominazione_scuola']}]"
+        )
+        cap_scuola = fallback
+    return cap_scuola
+
+
+def get_indirizzo_completo(
+    scuola_miur: Dict[str, str], fallback_cap: str = None
+) -> str:
     """
     Data una scuola presa dal database del MIUR, ritornane l'indirizzo
-    formattato, con il CAP per primo
+    formattato, con il CAP per primo.
+
+    Se la scuola non ha una via valida (campo indirizzo_scuola), usa
+    al suo posto la denominazione della scuola.
     """
     return ", ".join(
         [
-            scuola_miur["indirizzo_scuola"],
-            scuola_miur["cap_scuola"],
+            get_via_scuola(scuola_miur),
+            get_cap_scuola(scuola_miur, fallback_cap or ""),
             scuola_miur["descrizione_comune"],
             scuola_miur["provincia"],
         ]

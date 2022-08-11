@@ -18,8 +18,8 @@ from src.helpers.filter import estrai_scuole
 from src.helpers.scuole import estrai_disponibilita
 from src.helpers.geo import calcola_lat_lon
 from src.helpers.scuole import get_codice_from_scuola
-from src.helpers.sqlite3 import get_by_codice, get_indirizzo
-from src.libs.general import secondOrNone, thirdOrNone, fourthOrNone
+from src.helpers.sqlite3 import get_by_codice, get_indirizzo_completo
+from src.libs.general import secondOrNone, thirdOrNone
 from src.libs.parse import parseInt
 
 # Config variabili
@@ -64,7 +64,7 @@ for scuola in scuole:
         [
             codice,
             scuola_miur["denominazione_scuola"],
-            get_indirizzo(scuola_miur),
+            get_indirizzo_completo(scuola_miur),
             disp,
             lat,
             lon,

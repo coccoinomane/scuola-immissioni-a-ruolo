@@ -12,7 +12,7 @@ from sys import argv
 from typing import List
 from src.helpers.filter import distribuzione_disponibilita, estrai_scuole
 from src.helpers.scuole import estrai_disponibilita, get_codice_from_scuola
-from src.helpers.sqlite3 import get_by_codice, get_indirizzo
+from src.helpers.sqlite3 import get_by_codice, get_indirizzo_completo
 from src.libs.general import secondOrNone, thirdOrNone
 from src.libs.parse import parseInt
 
@@ -53,5 +53,5 @@ for n_disp in reversed(list(distribuzione.keys())):
     for scuola in scuole_con_n_disp:
         codice = get_codice_from_scuola(scuola, provincia + "  ")  # better match
         scuola_miur = get_by_codice(codice)
-        print(get_indirizzo(scuola_miur) + " | " + scuola)
+        print(get_indirizzo_completo(scuola_miur) + " | " + scuola)
     print("")
