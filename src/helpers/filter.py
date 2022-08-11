@@ -1,32 +1,40 @@
+from pprint import pprint
 import re
 from typing import Dict, List
-
 from PyPDF2 import PdfReader
 
 
 def filtra_scuole(
-    scuole: List[str], provincia: str, insegnamento: str, min_disponibilita: int = 0
+    scuole: List[str],
+    provincia: str,
+    classi_di_concorso: List[str],
+    min_disponibilita: int = 0,
 ) -> List[str]:
     """
     Filtra le scuole date per i criteri dati
     """
     return list(
         filter(
-            lambda s: valida_scuola(s, provincia, insegnamento, min_disponibilita),
+            lambda s: valida_scuola(
+                s, provincia, classi_di_concorso, min_disponibilita
+            ),
             scuole,
         )
     )
 
 
 def valida_scuola(
-    scuola: str, provincia: str, insegnamento: str, min_disponibilita: int = 0
+    scuola: str,
+    provincia: str,
+    classi_di_concorso: List[str],
+    min_disponibilita: int = 0,
 ) -> bool:
     """
     Ritorna True se la scuola data passa i criteri dati
     """
     return (
         scuola.startswith(provincia)
-        and insegnamento in scuola
+        and any([c in scuola for c in classi_di_concorso])
         and sum(estrai_disponibilita(scuola)) >= min_disponibilita
     )
 
@@ -35,7 +43,7 @@ def estrai_disponibilita(scuola: str) -> List[int]:
     """
     Estrai le disponibilità (colonne CIN e COE) da una scuola.
 
-    Se per qualche motivo non ci riesco, ritorno [99999]
+    Se per qualche motivo non ci riesco, ritorno None
     """
 
     result = re.search("^.*\s+(\d+)\s+(\d+)\s*$", scuola)
@@ -46,16 +54,17 @@ def estrai_disponibilita(scuola: str) -> List[int]:
     try:
         return [(int)(result.group(1))]
     except:
-        return [99999]
+        return None
 
 
 def estrai_scuole(
     pdf_file: str,
     provincia: str,
-    insegnamento: str,
+    classi_di_concorso: List[str],
     min_disponibilita: int,
     n_pages: int = 0,
     from_page: int = 1,
+    remove_header: bool = False,
 ) -> List[str]:
     """
     Tira fuori dal PDF una lista di scuole secondo i criteri dati
@@ -72,11 +81,14 @@ def estrai_scuole(
             continue
         page_text = page.extract_text()
         # Rimuovi header
-        page_text = page_text.split("\n", 1)[1]
+        if remove_header:
+            page_text = page_text.split("\n", 1)[1]
         # Dividi in righe
         page_rows = page_text.split("\n")
         # Filtra le scuole
-        page_rows = filtra_scuole(page_rows, provincia, insegnamento, min_disponibilita)
+        page_rows = filtra_scuole(
+            page_rows, provincia, classi_di_concorso, min_disponibilita
+        )
         # Aggiungi le righe all'accumulatore
         rows += page_rows
         # Stoppa se abbiamo raggiunto il limite di pagine

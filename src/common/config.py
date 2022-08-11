@@ -34,4 +34,3 @@ scuole_miur_schema = {
 # Chiave delle API Google Maps da usare per estrarre
 # latitudine e longitudine delle scuole
 google_maps_api_key = getenv("GOOGLE_MAPS_API_KEY")
-print(google_maps_api_key)

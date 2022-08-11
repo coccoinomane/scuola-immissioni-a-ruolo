@@ -5,7 +5,6 @@ della scuola dal DB del MIUR
 
 from pprint import pprint
 from sys import argv
-from src.helpers.scuole import get_codice_from_scuola
 from src.helpers.sqlite3 import get_by_codice
 from src.libs.general import secondOrNone
 
