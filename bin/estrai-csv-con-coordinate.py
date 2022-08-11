@@ -37,7 +37,7 @@ print(f"Disponibilità: da {min_disponibilita} in su")
 
 # Estrai scuole
 scuole = estrai_scuole(
-    "storage/avvio-immissioni.pdf",
+    "storage/2022-agosto-avvio-immissioni",
     provincia=provincia,
     insegnamento=insegnamento,
     min_disponibilita=min_disponibilita,
