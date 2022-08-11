@@ -16,9 +16,3 @@ if not codice:
     exit(1)
 
 pprint(get_by_codice(codice))
-
-print(
-    get_codice_from_scuola(
-        "RMMM805014 CARLO CATTANEO NORMALE MMEH - SOSTEGNO I GRADO EH 2 0"
-    )
-)
