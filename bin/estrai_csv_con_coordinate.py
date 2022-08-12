@@ -16,9 +16,9 @@ from sys import argv
 from typing import Any, List
 from src.helpers.filter import estrai_scuole
 from src.helpers.scuole import estrai_disponibilita
-from src.helpers.geo import calcola_lat_lon
+from src.helpers.geo import calcola_lat_lon, get_indirizzo_completo
 from src.helpers.scuole import get_codice_from_scuola
-from src.helpers.sqlite3 import get_by_codice, get_indirizzo_completo
+from src.helpers.sqlite3 import get_by_codice
 from src.libs.general import secondOrNone, thirdOrNone
 from src.libs.parse import parseInt
 

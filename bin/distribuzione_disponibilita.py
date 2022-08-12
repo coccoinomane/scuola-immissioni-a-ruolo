@@ -12,7 +12,8 @@ from sys import argv
 from typing import List
 from src.helpers.filter import distribuzione_disponibilita, estrai_scuole
 from src.helpers.scuole import estrai_disponibilita, get_codice_from_scuola
-from src.helpers.sqlite3 import get_by_codice, get_indirizzo_completo
+from src.helpers.sqlite3 import get_by_codice
+from src.helpers.geo import get_indirizzo_completo
 from src.libs.general import secondOrNone, thirdOrNone
 from src.libs.parse import parseInt
 
