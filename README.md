@@ -25,7 +25,7 @@ Se vuoi mostrare le scuole su una mappa:
 1. Inserisci la tua chiave API di Google Maps in .env
 2. Lancia il seguente comando per generare il file `storage/scuole-con-coordinate.csv`:
    ```bash
-   python3 -m bin.estrai-csv-con-coordinate 1
+   python3 -m bin.estrai_csv_con_coordinate 1
    ```
 3. Il CSV generato contiene le disponibilità delle scuole e le relative coordinate geografiche
 4. Carica il CSV su [Google My Maps](https://mymaps.google.com/) per vedere le scuole su una mappa
